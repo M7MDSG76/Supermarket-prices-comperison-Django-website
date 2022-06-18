@@ -1,10 +1,5 @@
-from cProfile import label
-from pydoc import Helper
-from queue import Empty
-from statistics import mode
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
 
 class Brand(models.Model):
     name= models.CharField(unique=True, max_length=50, help_text= 'Brand name')
@@ -12,11 +7,15 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
     
+    #def get_abolute_url
+    
 class Supermarket(models.Model):
     name= models.CharField(unique=True, max_length=50, help_text= 'Supermarket name')
 
     def __str__(self):
         return self.name
+    
+    #def get_abolute_url
     
 class Catagory(models.Model):
     name= models.CharField(unique=True, max_length=50, help_text= 'Catagory name')
@@ -24,14 +23,17 @@ class Catagory(models.Model):
     def __str__(self):
         return self.name
     
+    #def get_abolute_url
+    
 class Product(models.Model):
     name= models.CharField(max_length=200, help_text= 'Product name')
     brand_name= models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
     catagory_name= models.ForeignKey(Catagory, on_delete=models.SET_NULL, null=True, blank=True)
+    # size = models.CharField() Choices between ['L', 'ml', 'g', 'KG', ...]
     def __str__(self):
-        if self.brand_name:
-            return f'{self.brand_name} {self.name}'
         return self.name
+    
+    #def get_abolute_url
     
 class SupermarketBranch(models.Model):
     supermarket= models.ForeignKey(Supermarket, on_delete=models.CASCADE)
@@ -42,8 +44,23 @@ class SupermarketBranch(models.Model):
             return f'{self.supermarket} - {self.city}'
         return self.supermarket
     
+    #def get_abolute_url
+    
 class Item(models.Model):
-    product= models.ForeignKey(Product, on_delete=models.SET_NULL)
-    name= models.CharField(max_length=200, help_text= 'Item name')
+    product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    supermarket_branch= models.ForeignKey(SupermarketBranch, on_delete=models.RESTRICT, null=True, blank=True) 
+    creator= models.ForeignKey(User, on_delete=models.CASCADE)
+    price= models.DecimalField(decimal_places=2, max_digits=5)
+    register_date= models.DateTimeField(verbose_name='Register date', auto_now_add=True)
+    modified_date= models.DateTimeField(verbose_name='Modified date', auto_now=True)
+    
+    def __str__(self):
+        return self.product.name
+    
+    def get_supermarket(self):
+        return self.supermarket_branch.supermarket
+    
+    #def get_abolute_url
+    
     
     
