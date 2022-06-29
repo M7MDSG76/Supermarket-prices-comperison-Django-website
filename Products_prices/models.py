@@ -1,8 +1,6 @@
-from pyexpat import model
-import uuid
 from django.db import models
 from django.contrib.auth.models import User
-import uuid
+
 
 class Brand(models.Model):
     name= models.CharField(unique=True, max_length=50, help_text= 'Brand name')
@@ -19,6 +17,7 @@ class Supermarket(models.Model):
     def __str__(self):
         return self.name
     
+        
     #def get_abolute_url
     
     
@@ -33,7 +32,7 @@ class Catagory(models.Model):
 
 class SupermarketBranch(models.Model):
     supermarket= models.ForeignKey(Supermarket, on_delete=models.CASCADE)
-    city= models.CharField(max_length= 50, help_text='set the City name', null=True, blank=True, unique=True)
+    city= models.CharField(max_length= 50, help_text='set the City name', null=True, blank=True)
     neighborhood= models.CharField(max_length= 100, help_text='set the Neighborhood name', null=True, blank=True)
     
     def __str__(self):
@@ -56,6 +55,8 @@ class Product(models.Model):
     
     # def get_abolute_url(self):
     #     return    
+
+
     
 class Item(models.Model):
     product= models.ForeignKey(Product, on_delete=models.RESTRICT, null=True, blank=True)
@@ -65,12 +66,18 @@ class Item(models.Model):
     register_date= models.DateTimeField(verbose_name='Register date', auto_now_add=True)
     modified_date= models.DateTimeField(verbose_name='Modified date', auto_now=True)
     slug = models.SlugField(unique=True, null=True, blank = True)
+    
+    # class Meta:
+    #     order_with_respect_to = 'supermarket_branch'
+       
     def __str__(self):
         return self.product.name
     
     def get_supermarket(self):
         return self.supermarket_branch.supermarket
     
+    # def get_all_items_by_supermarket(self, supermarket_name):
+    #     return Item.objects.all().filter(supermarket_branch.supermarket == supermarket_name)
     #def get_abolute_url
 
 
