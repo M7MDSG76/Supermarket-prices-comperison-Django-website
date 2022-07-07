@@ -2,8 +2,9 @@ from os import name
 from queue import Empty
 from django.shortcuts import render
 from .models import *
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
+from .forms import NewItemForm
 
 class ItemListView(ListView):
     model = Item
@@ -44,5 +45,8 @@ class ItemListView(ListView):
         return context
 
         
-
+class AddItemView(CreateView):
+    model = Item
+    fields = ['product', 'supermarket_branch', 'price']
+    
 
