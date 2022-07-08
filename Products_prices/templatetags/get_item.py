@@ -35,7 +35,9 @@ def get_chepest_item(supermarket, product):
 
 @register.filter(name = 'get_item')
 def get_item(supermarket_list:list, product_list: list):    
-            
+            """
+                Get items and print it in html form
+            """
             if len(supermarket_list) > 0 and len(product_list) > 0:
                 
                 # Iterate over all products:

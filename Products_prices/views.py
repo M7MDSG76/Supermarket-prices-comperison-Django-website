@@ -1,6 +1,7 @@
 from os import name
 from queue import Empty
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -45,8 +46,9 @@ class ItemListView(ListView):
         return context
 
         
-class AddItemView(CreateView):
+class CreateItemView(CreateView):
     model = Item
-    fields = ['product', 'supermarket_branch', 'price']
-    
+    fields = ['product', 'supermarket_branch', 'price', 'creator']
+    template_name = 'items/add_item_form.html'
+    success_url = reverse_lazy('home')
 

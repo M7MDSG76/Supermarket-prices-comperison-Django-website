@@ -60,3 +60,20 @@ class AdminItem(admin.ModelAdmin):
   
 class ItemInline(admin.TabularInline):
     model: Item
+    
+    
+from django import forms
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
+
+
+
+# class ConsomerForm(forms.ModelForm):
+#     class Meta:
+#         widgets = {
+#             'phone': PhoneNumberPrefixWidget(),
+#         }
+        
+@admin.register(Cunsomer)
+class AdminCunsomer(admin.ModelAdmin):
+    fields = ['user', 'first_name', 'middel_name', 'last_name', 'email', 'phone_no']
+    

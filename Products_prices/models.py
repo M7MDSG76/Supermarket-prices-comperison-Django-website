@@ -1,5 +1,11 @@
+import re
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
+
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 
 class Brand(models.Model):
@@ -57,18 +63,26 @@ class Product(models.Model):
     #     return    
 
 
+class Cunsomer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, verbose_name=_('First name'))
+    middel_name = models.CharField(max_length=50, verbose_name=_('Middel name'))
+    last_name = models.CharField(max_length=50, verbose_name=_('Last name'))
+    email = models.EmailField(verbose_name = _('User Email'), unique=True, primary_key=True)
+    phone_no = models.CharField(max_length=10, verbose_name=_('Phone Number'),unique=True, null=True, blank=True)
+    
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
     
 class Item(models.Model):
     product= models.ForeignKey(Product, on_delete=models.RESTRICT, null=True, blank=True)
     supermarket_branch= models.ForeignKey(SupermarketBranch, on_delete=models.RESTRICT, null=True, blank=True) 
-    creator= models.ForeignKey(User, on_delete=models.CASCADE)
-    price= models.DecimalField( max_digits=5, decimal_places=2,)
+    creator= models.ForeignKey(Cunsomer, on_delete=models.CASCADE)
+    price= models.DecimalField( max_digits=5, decimal_places=2, verbose_name=_('Product Price'))
     register_date= models.DateTimeField(verbose_name='Register date', auto_now_add=True)
     modified_date= models.DateTimeField(verbose_name='Modified date', auto_now=True)
     slug = models.SlugField(unique=True, null=True, blank = True)
     
-    # class Meta:
-    #     order_with_respect_to = 'supermarket_branch'
        
     def __str__(self):
         return self.product.name
