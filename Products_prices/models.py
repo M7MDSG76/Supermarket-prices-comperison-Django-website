@@ -63,21 +63,22 @@ class Product(models.Model):
     #     return    
 
 
-class Cunsomer(models.Model):
+class Consumer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, verbose_name=_('First name'))
-    middel_name = models.CharField(max_length=50, verbose_name=_('Middel name'))
-    last_name = models.CharField(max_length=50, verbose_name=_('Last name'))
-    email = models.EmailField(verbose_name = _('User Email'), unique=True, primary_key=True)
+    first_name = models.CharField(max_length=50, verbose_name=_('First name'), null=True, blank=True)
+    last_name = models.CharField(max_length=50, verbose_name=_('Last name'), null=True, blank=True)
+    email = models.EmailField(verbose_name = _('User Email'), unique=True, null=True, blank=True)
     phone_no = models.CharField(max_length=10, verbose_name=_('Phone Number'),unique=True, null=True, blank=True)
     
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        if self.first_name:
+            return self.first_name
+        return self.user.username
     
 class Item(models.Model):
     product= models.ForeignKey(Product, on_delete=models.RESTRICT, null=True, blank=True)
     supermarket_branch= models.ForeignKey(SupermarketBranch, on_delete=models.RESTRICT, null=True, blank=True) 
-    creator= models.ForeignKey(Cunsomer, on_delete=models.CASCADE)
+    creator= models.ForeignKey(Consumer, on_delete=models.CASCADE)
     price= models.DecimalField( max_digits=5, decimal_places=2, verbose_name=_('Product Price'))
     register_date= models.DateTimeField(verbose_name='Register date', auto_now_add=True)
     modified_date= models.DateTimeField(verbose_name='Modified date', auto_now=True)

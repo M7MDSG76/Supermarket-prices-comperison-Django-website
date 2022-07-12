@@ -6,4 +6,6 @@ print('----------------------------------------test urls.py---------------------
 urlpatterns = [
     path('home/', views.ItemListView.as_view(), name='home' ),
     path('item/create/', views.CreateItemView.as_view(), name='create-item'),
+    
+    path('consumer/create', views.create_new_account, name='consumer-create')
 ]

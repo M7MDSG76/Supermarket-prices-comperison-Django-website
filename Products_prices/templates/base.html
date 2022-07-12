@@ -98,7 +98,10 @@
                         </li> -->
       
                         <li><a href="{% url 'create-item' %}" class="nav-link"><button type="button" class="btn btn-success">تسعيره جديده</button></a></li>
-      
+                        
+                        {% if user.is_authenticated %}
+                        <li>{{user.username}}</li>
+                        {% endif %}
                         <!-- <li><a href="#testimonials-section" class="nav-link">###</a></li> -->
                        
                       </ul>

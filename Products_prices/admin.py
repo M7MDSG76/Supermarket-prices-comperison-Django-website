@@ -73,7 +73,7 @@ from phonenumber_field.widgets import PhoneNumberPrefixWidget
 #             'phone': PhoneNumberPrefixWidget(),
 #         }
         
-@admin.register(Cunsomer)
+@admin.register(Consumer)
 class AdminCunsomer(admin.ModelAdmin):
-    fields = ['user', 'first_name', 'middel_name', 'last_name', 'email', 'phone_no']
+    fields = ['user', 'first_name', 'last_name', 'email', 'phone_no']
     
