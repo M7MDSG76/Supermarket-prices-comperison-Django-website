@@ -71,8 +71,6 @@ class Consumer(models.Model):
     phone_no = models.CharField(max_length=10, verbose_name=_('Phone Number'),unique=True, null=True, blank=True)
     
     def __str__(self):
-        if self.first_name:
-            return self.first_name
         return self.user.username
     
 class Item(models.Model):

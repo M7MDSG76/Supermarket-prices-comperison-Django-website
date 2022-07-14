@@ -101,6 +101,10 @@
                         
                         {% if user.is_authenticated %}
                         <li>{{user.username}}</li>
+                        <li><a href="{% url 'consumer-logout' %}" >Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'consumer-login'%}">Login</a></li>
+                        <li><a href="{% url 'consumer-create'%}">Register</a></li>
                         {% endif %}
                         <!-- <li><a href="#testimonials-section" class="nav-link">###</a></li> -->
                        
