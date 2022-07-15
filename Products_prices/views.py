@@ -24,7 +24,6 @@ class ItemListView(ListView):
     
     
     def get_context_data(self, **kwargs):
-        
         """
         Override the class view context to add 
         products and supermarkets to use it in the data quarying
@@ -32,34 +31,16 @@ class ItemListView(ListView):
         # Call the base implementation first to get a context
         context = super(ItemListView, self).get_context_data(**kwargs)
         
-        supermarkets = Supermarket.objects.all()
-        products = Product.objects.all()
         
-        print(f'supermarkets: \n{supermarkets}')
-        print(f'products: \n{products}')
-        
-        supermarkets_list = []
-        products_list = []
-        
-        for supermarket in supermarkets:
-            supermarkets_list.append(supermarket)
-        
-        for product in products:
-            products_list.append(product)
-           
-                
+          
         context.update({
-        'supermarkets' : supermarkets_list,
-        'products': products_list,  
+        'supermarkets' : Supermarket.objects.all(),
+        'products': Product.objects.all(),  
     })
         return context
 
         
-class CreateItemView(CreateView):
-    model = Item
-    fields = ['product', 'supermarket_branch', 'price', 'creator']
-    template_name = 'items/add_item_form.html'
-    success_url = reverse_lazy('home')
+
     
 class CreateItem(LoginRequiredMixin,View):
     

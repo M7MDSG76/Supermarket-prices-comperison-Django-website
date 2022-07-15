@@ -101,10 +101,10 @@
                         
                         {% if user.is_authenticated %}
                         <li>{{user.username}}</li>
-                        <li><a href="{% url 'logout' %}?next={% url 'home'%}" >Logout</a></li>
+                        <li><a href="{% url 'logout' %}?next={% url 'home'%}" >تسجيل خروج</a></li>
                         {% else %}
-                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-                        <li><a href="{% url 'consumer-create'%}?next={{request.path}}">Register</a></li>
+                        <li><a href="{% url 'login'%}?next={{request.path}}">تسجيل دخول</a></li>
+                        <li><a href="{% url 'consumer-create'%}?next={{request.path}}">تسجيل حساب جديد</a></li>
                         {% endif %}
                         <!-- <li><a href="#testimonials-section" class="nav-link">###</a></li> -->
                        
