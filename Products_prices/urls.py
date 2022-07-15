@@ -9,7 +9,9 @@ urlpatterns = [
     
     path('consumer/create', views.create_new_account, name='consumer-create'),
     path('consumer/login', views.login_view, name='consumer-login'),
-    path('consumer/logout', views.logout_view, name='consumer-logout')
+    path('consumer/logout', views.logout_view, name='consumer-logout'),
+    
+    path('accounts/', include('django.contrib.auth.urls')),
     
     
 ]

@@ -117,19 +117,14 @@ def login_view(request):
         return HttpResponse('you are already logged in, if you want to loggin with another account please logout and try agian')
     
     if request.method == 'POST':
-        form = LoginUserForm(request.POST)
-        if form.is_valid():
-            user = authenticate(request, username= form.cleaned_data['username'], password= form.cleaned_data['password'])
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home')) 
-            else:
-                return HttpResponse('username does not exits!')
-        context = {
-            'form': form
-        }
         
-        return render(request, html_template, context)
+        user = authenticate(request, username= form.cleaned_data['username'], password= form.cleaned_data['password'])
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home')) 
+        else:
+            return HttpResponse('username does not exits!')
+        
     
     else:
         form = LoginUserForm()
