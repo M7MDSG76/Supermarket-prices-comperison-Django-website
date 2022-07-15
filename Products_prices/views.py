@@ -1,16 +1,19 @@
 from multiprocessing import context
-from django.contrib.auth import login
+from urllib import request
+
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, View
 
-from .forms import CreateConsumerForm, LoginUserForm
+from .forms import CreateConsumerForm, CreateItemForm, LoginUserForm
 from .models import *
 from .my_validators import user_exists
-from django.contrib.auth import authenticate, login, logout
 
 
 class ItemListView(ListView):
@@ -58,7 +61,36 @@ class CreateItemView(CreateView):
     template_name = 'items/add_item_form.html'
     success_url = reverse_lazy('home')
     
-
+class CreateItem(LoginRequiredMixin,View):
+    
+    def post(self, request, *args, **kwargs):
+        form = CreateItemForm(self.request.POST)
+        if form.is_valid():
+            
+            consumer= Consumer.objects.get(user=self.request.user)
+            print(f'-------------{consumer}-------------,')
+            item = Item.objects.create(product=form.cleaned_data['product'],
+                                       supermarket_branch=form.cleaned_data['supermarket_branch'],
+                                       creator=consumer,
+                                       price=form.cleaned_data['price'])
+        
+            return HttpResponseRedirect(reverse('home'))
+        context = {
+            'form': form
+        }
+        return render(request, 'items/create.html', context)
+    
+    
+    def get(self, request, *args, **kwargs):
+        form = CreateItemForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, 'items/create.html', context)
+        
+    
+    pass
+    
  
 
 def create_new_account(request):

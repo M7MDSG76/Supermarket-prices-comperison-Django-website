@@ -64,7 +64,7 @@ class Product(models.Model):
 
 
 class Consumer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, verbose_name=_('First name'), null=True, blank=True)
     last_name = models.CharField(max_length=50, verbose_name=_('Last name'), null=True, blank=True)
     email = models.EmailField(verbose_name = _('User Email'), unique=True, null=True, blank=True)

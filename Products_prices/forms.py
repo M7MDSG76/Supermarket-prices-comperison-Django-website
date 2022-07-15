@@ -132,4 +132,9 @@ class LoginUserForm(forms.Form):
         data = self.cleaned_data['password']
         return data
 
+
+class CreateItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        exclude= ('creator','slug',)
     
