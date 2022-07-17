@@ -76,7 +76,7 @@ class Consumer(models.Model):
 class Item(models.Model):
     product= models.ForeignKey(Product, on_delete=models.RESTRICT, null=True, blank=True)
     supermarket_branch= models.ForeignKey(SupermarketBranch, on_delete=models.RESTRICT, null=True, blank=True) 
-    creator= models.ForeignKey(Consumer, on_delete=models.CASCADE)
+    creator= models.ForeignKey(Consumer, on_delete=models.SET_NULL, null=True, blank=True)
     price= models.DecimalField( max_digits=5, decimal_places=2, verbose_name=_('Product Price'))
     register_date= models.DateTimeField(verbose_name='Register date', auto_now_add=True)
     modified_date= models.DateTimeField(verbose_name='Modified date', auto_now=True)

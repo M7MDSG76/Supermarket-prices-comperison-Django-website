@@ -135,3 +135,10 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# EB CLI 
+.idea
+*.pyc
+*.swp
+*.swo
+__pycache__
