@@ -18,7 +18,7 @@ from .my_validators import user_exists
 
 class ItemListView(ListView):
     model = Item
-    template_name = 'items\Home_items_list.html'
+    template_name = 'items/Home_items_list.html'
     context_object_name = 'items'
     queryset =  Item.objects.all()
     
