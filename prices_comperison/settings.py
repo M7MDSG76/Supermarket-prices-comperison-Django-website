@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!s((fh7b+$#6f*+^+ls3+$1q2@v&$85i+slon9e(5v&3z+*p3g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'm7-price-comparison.herokuapp.com']
 
@@ -66,8 +66,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'templates\consumer'),
-            os.path.join(BASE_DIR, 'templates\items'),
+            os.path.join(BASE_DIR, 'templates\\consumer'),
+            os.path.join(BASE_DIR, 'templates\\items'),
             os.path.join(BASE_DIR, 'templates\\registration'),
             ],
         'APP_DIRS': True,
