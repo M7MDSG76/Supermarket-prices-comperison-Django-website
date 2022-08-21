@@ -1,0 +1,46 @@
+
+
+<!-- Load tags and filters -->
+{% load get_item %}
+
+
+{%block title%}
+  Price Comparison
+{%endblock%}
+
+{%block content %}
+          {% if items %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المنتج</th>
+                            {% for supermarket in supermarkets %}
+                            <th>{{supermarket.name}}</th>
+                            {% endfor %}
+                            </tr>
+                      </thead>
+                      
+                      <tbody>
+                        
+                         {% if products and supermarkets %}
+                                  {% for product in products %}
+                                          <tr>
+                                            <td>{{product}}</td>
+                                            {% for supermarket in supermarkets %}
+                                                
+                                                {% if supermarket|get_chepest_item:product != 'N/A' %}
+                                                      <td>{{supermarket|get_chepest_item:product}}</td>
+                                                {%else%}
+                                                      <td>N/A</td>
+                                                {% endif %}
+                                              
+                                            {% endfor %}
+                                          </tr>
+                                  {% endfor %}
+                         {% endif %}
+                          
+                      </tbody>
+                          
+              </table>
+          {% endif %}
+{% endblock %}
