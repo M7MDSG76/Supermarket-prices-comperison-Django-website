@@ -89,9 +89,17 @@ WSGI_APPLICATION = 'prices_comperison.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dau0rni627mdu8', 
+        'USER': 'cmfjdzwxyohqxk', 
+        'PASSWORD': '9ea0d4e9a756ed1134e576128aa99add7d2b4822d621cdd69f9ab36927c3b6ef',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com', 
+        'PORT': '5432',
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=600)
